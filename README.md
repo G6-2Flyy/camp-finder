@@ -10,7 +10,7 @@ The purpose of this project is to build an application that allows users to ente
 To search for a campground, choose a state from the drop down and click on Search. This will display every national park in the chosen state. To refine results further, a user can select a specific park and a specific campsite within that park. Previous searches will be saved so the user can revisit previous searches.
 
 Here is the live website. [Try it out!](https://justinpatty.github.io/camp-finder/) <br/>
-![Screenshot of Camp Finder](./assets/images/camp_finder_screenshot.png)
+![Screenshot of Camp Finder](./assets/images/campfinder_screenshot.png)
 
 ## Credits
 
