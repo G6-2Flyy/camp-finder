@@ -6,6 +6,8 @@ var campGrounds = [];
 var saveBtn = document.getElementById("save-btn");
 var campname = 2;
 var parkname = 1;
+var selectedIndex;
+var savedCampgrounds = [];
 
 // fetched github url to get json file with state names and abbreviations to create state dropdown
 function getStates() {
@@ -117,9 +119,8 @@ document
   .addEventListener("submit", function (event) {
     event.preventDefault();
     var index = document.querySelector("#camp-dropdown").value;
-    console.log(campGrounds[+index]);
+    selectedIndex = +index
     showCampInfo(campGrounds[+index]);
-    saveToLocalStorage(campGrounds[+index]);
   });
 
 function showCampInfo(camp) {
@@ -160,13 +161,26 @@ function getParkAmenities() {
     });
 }
 // stores searched history for campgrounds by name
-function saveToLocalStorage(data) {
+function saveToLocalStorage() {
+  var data = campGrounds[selectedIndex];
   var searchedCampSites =
     JSON.parse(localStorage.getItem("searchedCampSites")) || [];
-  searchedCampSites.push(data.name);
+  searchedCampSites.unshift(data);
   console.log("data", searchedCampSites);
   localStorage.setItem("searchedCampSites", JSON.stringify(searchedCampSites));
+  getStoredCampgrounds();
 }
+
+function getStoredCampgrounds() {
+  savedCampgrounds = JSON.parse(localStorage.getItem("searchedCampSites")) || [];
+  var options = '<option value="">Select from history</option>'
+  for (var i=0; i < savedCampgrounds.length; i++) {
+    var camp = savedCampgrounds[i];
+  options+=`<option value="${i}">${camp.name}</option>`
+  }
+  document.querySelector('#history').innerHTML=options
+}
+getStoredCampgrounds();
 saveBtn.addEventListener("click", saveToLocalStorage);
 
 async function load_map(long, lat) {
