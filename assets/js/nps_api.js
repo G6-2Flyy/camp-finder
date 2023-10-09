@@ -163,12 +163,15 @@ function getParkAmenities() {
 // stores searched history for campgrounds by name
 function saveToLocalStorage() {
   var data = campGrounds[selectedIndex];
-  var searchedCampSites =
+  if (data) {
+    var searchedCampSites =
     JSON.parse(localStorage.getItem("searchedCampSites")) || [];
   searchedCampSites.unshift(data);
   console.log("data", searchedCampSites);
   localStorage.setItem("searchedCampSites", JSON.stringify(searchedCampSites));
   getStoredCampgrounds();
+  }
+ 
 }
 
 function getStoredCampgrounds() {
@@ -179,9 +182,15 @@ function getStoredCampgrounds() {
   options+=`<option value="${i}">${camp.name}</option>`
   }
   document.querySelector('#history').innerHTML=options
+  
 }
 getStoredCampgrounds();
 saveBtn.addEventListener("click", saveToLocalStorage);
+
+
+document.querySelector('#history').addEventListener('change', function (event) {
+  showCampInfo(savedCampgrounds[+event.target.value]);
+})
 
 async function load_map(long, lat) {
   // change parkLong and parkLat to call API data of Long and Lat
