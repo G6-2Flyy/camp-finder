@@ -220,6 +220,7 @@ async function load_map(long, lat) {
     const imageBlob = await response.blob();
     const imageObjectURL = URL.createObjectURL(imageBlob);
     const image = document.createElement("img");
+    image.setAttribute("class", "w-full");
     image.src = imageObjectURL;
     const container = document.getElementById("map-container");
     container.append(image);
@@ -236,11 +237,16 @@ function cards(data, tf, nameStyle) {
   // single card response
   if (tf == true) {
 
-    main.setAttribute("class", "flex columns-3 m-2");
+    main.setAttribute("class", "flex  w-full gap-4 m-2");
 
     var div = document.createElement("div");
-    div.setAttribute("class", "max-w-sm overflow-hidden bg-[#005500] mb-8");
+    div.setAttribute("class", "w-2/6 overflow-hidden bg-[#005500] mb-8 min-h-[96%]");
     main.appendChild(div);
+
+    var title = document.createElement("h3");
+    title.setAttribute("class", "font-bold text-xl mb-2");
+    title.textContent = data.name;
+    div.appendChild(title);
 
     var img = document.createElement("img");
     img.setAttribute("class", "w-full");
@@ -257,30 +263,27 @@ function cards(data, tf, nameStyle) {
     p.textContent = data.description;
     div.appendChild(p);
 
-    var div3 = document.createElement("div");
-    div3.setAttribute("class", "px-6 pt-4 pb-2");
-    div.appendChild(div3);
+    // var div3 = document.createElement("div");
+    // div3.setAttribute("class", "px-6 pt-4 pb-2");
+    // div.appendChild(div3);
     // second column of data 
-    var section2 = document.createElement("div");
-    section2.setAttribute("class","max-w-sm overflow-hidden bg-[#005500] mb-8");
-    main.appendChild(section2);
+    // var section2 = document.createElement("div");
+    // section2.setAttribute("class","w-68 overflow-hidden bg-[#005500] mb-8");
+    // main.appendChild(section2);
 
-    var div4 = document.createElement("div");
-    div4.setAttribute("class", "px-6 py-4");
-    section2.appendChild(div4);
+    // var div4 = document.createElement("div");
+    // div4.setAttribute("class", "px-6 py-4");
+    // section2.appendChild(div4);
 
-    var div4a = document.createElement("div");
-    div4a.setAttribute("class", "font-bold text-xl mb-2");
-    div4a.textContent = data.name;
-    div4.appendChild(div4a);
+  
 
-    var mp = document.createElement("p");
-    mp.setAttribute("class", "text-[#decd87] text-base row");
-    mp.textContent = data.audioDescription;
-    section2.appendChild(mp);
+    // var mp = document.createElement("p");
+    // mp.setAttribute("class", "text-[#decd87] text-base row");
+    // mp.textContent = data.audioDescription;
+    // section2.appendChild(mp);
     // third column of data
     var section3 = document.createElement("div");
-    section3.setAttribute("class", "max-w-sm overflow-hidden bg-[#005500] mb-8");
+    section3.setAttribute("class", "flex-1 w-64 overflow-hidden bg-[#005500] mb-8");
     main.appendChild(section3);
 
     var p3 = document.createElement("p");
@@ -305,10 +308,10 @@ function cards(data, tf, nameStyle) {
     section3.appendChild(p5);
 
     var mapdiv = document.createElement("div");
-    mapdiv.setAttribute("src", load_map(data.longitude, data.latitude));
     mapdiv.setAttribute("id", "map-container");
-    mapdiv.setAttribute("class", "object-bottom");
+    mapdiv.setAttribute("class", "object-bottom w-full");
     section3.appendChild(mapdiv);
+    load_map(data.longitude, data.latitude); 
     // multiple card response
   } else {
     main.setAttribute("class", "flex flex-wrap gap-8 columns-3 m-2");
